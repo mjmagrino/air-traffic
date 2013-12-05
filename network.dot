@@ -1,0 +1,10 @@
+digraph Net {
+	PHL -> IAD [ label=60 ]
+	PHL -> EWR [ label=75 ]
+	PHL -> JFK [ label=20 ]
+	IAD -> JFK [label=15 ]
+	EWR -> PHL [ label=30 ]
+	EWR -> JFK [ label=20 ]
+	JFK -> IAD [ label=10]
+	JFK -> PHL [ label=15 ]
+}

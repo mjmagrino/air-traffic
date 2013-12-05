@@ -1,0 +1,7 @@
+digraph FinalFlow {
+	PHL -> IAD [ label="15/60" ]
+	PHL -> EWR [ label="60/75" ]
+	PHL -> JFK [ label="20/20" ]
+	IAD -> JFK [label="15/15" ]
+	EWR -> JFK [ label="20/20" ]
+}

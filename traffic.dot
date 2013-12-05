@@ -1,0 +1,5 @@
+digraph Traffic {
+	PHL -> EWR [ label=45 ]
+	PHL -> JFK [ label=50 ]
+	EWR -> JFK [ label=5 ]
+}
