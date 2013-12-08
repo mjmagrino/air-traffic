@@ -1,4 +1,7 @@
 """
+command line usage:
+$python airTraffic.py network.dot nodeCaps.txt traffic.dot
+
 Makes use of:
     pygraphviz -> http://pygraphviz.github.io/documentation/latest/reference/agraph.html
     networkx -> http://networkx.lanl.gov/reference/drawing.html    
