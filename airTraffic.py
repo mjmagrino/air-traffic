@@ -33,7 +33,10 @@ def main(argv):
 	    
 		if(node1 in network.neighbors(node2) and (node2 in network.neighbors(node1))): 
 		
-		    print "~~~~~~~~~~~~~~~~~~~"
+		    print "~~~~~~~~~~~~~~~~~~~"             #this is how to reference edge weights
+                                                                                        # |
+                                                                                        # |
+                                                                                        # V
 		    print(node1+"->"+node2+" weight: " + str(network[node1][node2][0]['label']))    
 		
 		elif (node2 in network.neighbors(node1)and (node1 in network.neighbors(node2))):
