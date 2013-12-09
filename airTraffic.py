@@ -29,36 +29,48 @@ def main(argv):
         nodeCaps[str(splitLine[0])]= int(splitLine[1])
 
     #while (network.number_of_edges())>(int(network.number_of_nodes())/2):
-
-    for node1 in network:
-	for node2 in network:
+    print(network.edges())
+    multiEdgeNodes=[]
+    for node1 in network.nodes():
+	for node2 in network.nodes():
 	    if node1 != node2:
 	    
 		if(node1 in network.neighbors(node2) and (node2 in network.neighbors(node1))): 
+                    if ((node1,node2) not in multiEdgeNodes):
+                        multiEdgeNodes.append((node2,node1))
+                    #print "~~~~~~~~~~~~~~~~~~~"
+		    #print(node1+"->"+node2+" weight: " + str(network[node1][node2][0]['label']))    
 		
-		    print "~~~~~~~~~~~~~~~~~~~"             #this is how to reference edge weights
-                                                                                        # |
-                                                                                        # |
-                                                                                        # V
-		    print(node1+"->"+node2+" weight: " + str(network[node1][node2][0]['label']))    
-		
-		elif (node2 in network.neighbors(node1)and (node1 in network.neighbors(node2))):
-	
-		    print "~~~~~~~~~~~~~~~~~~~"
-		    print(node2+"->"+node1+" weight: " + str(network[node2][node1][0]['label']))
-
+		                
 		else:
 		    n = network.number_of_edges(node1, node2)
 		    #print(n)              
-		     
-		
+				
 	    #do anti-parallel edge removal by adding intermediate node
-    
-    #print(network.nodes())
-    print("~~~~~~~~~~~~~~~~~~~")
-    #print(network.edges())
 
-    #print(network)
+            if ((node1,node2) in multiEdgeNodes):
+                print "hello from node removal!"
+                #remove edge node1 and node2 
+                network.remove_edge(node1,node2)
+                print "removed successfully!"
+                #add node newnode 
+                newnode = node2+"'"
+                network.add_node(newnode)
+                print "node added successfully!"
+                #retrieve value for original edge..store in value
+                value=network[node2][node1][0]['label']
+                print "values added successfully!" 
+                #add edge from node1 to newnode' ..add value
+                network.add_edge(node1, newnode, value) 
+                #add edge from newnode to node2.. add value
+                network.add_edge(newnode, node2, value)
+                print "edges added successfully!"
+          
+
+    #print (multiEdgeNodes)
+    print(network.nodes())
+    #print("~~~~~~~~~~~~~~~~~~~")
+    print(network.edges())
     #print(nodeCaps)
     #print(traffic)
 
