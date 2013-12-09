@@ -27,16 +27,35 @@ def main(argv):
     for line in rawNodeCaps:
         splitLine = line.split()
         nodeCaps[str(splitLine[0])]= int(splitLine[1])
-
+    #print (network)
     #while (network.number_of_edges())>(int(network.number_of_nodes())/2):
-    print(network.edges())
+    #print(network.edges())
 
-    removeAntiParallelEdges(network)
+    network1= removeAntiParallelEdges(network)
 
+    
+##    for node1 in network1.nodes():
+##        print(network1.number_of_nodes())
+##        print(network1.number_of_edge())
+##        for node2 in network1.nodes():
+##            
+##            if node1 != node2:
+##                if(node1 in network1.neighbors(node2) and (node2 in network1.neighbors(node1))):
+##                    print "~~~~~~~~~~~~~~~~~~~"
+##                    print(node1+"->"+node2+" weight: " + str(network1[node1][node2][0]['label']))  
+##
+  
+   
+    network= removeCapConstraint(network,nodeCaps)
+    
+
+    #print(network1)
+    #print nodeCaps
     #print (multiEdgeNodes)
-    print(network.nodes())
+    #print(network.nodes())
     #print("~~~~~~~~~~~~~~~~~~~")
-    print(network.edges())
+    print(network["EWR"]["EWR'"][0]['label'])
+    #print(network.edges())
     #print(nodeCaps)
     #print(traffic)
 
@@ -64,13 +83,28 @@ def removeAntiParallelEdges(network):
                 newnodecount +=1
                 network.add_node(newnode)
                 #retrieve value for original edge..store in value
-                value=network[node2][node1][0]['label'] 
+                value = network[node2][node1][0]['label']
                 #add edge from node1 to newnode' ..add value
-                network.add_edge(node1, newnode, value) 
+                network.add_edge(node1, newnode, label=value) 
                 #add edge from newnode to node2.. add value
-                network.add_edge(newnode, node2, value)
-          
+                network.add_edge(newnode, node2, label=value)
+                #print(node1+"->"+newnode+" weight: " + str(network[node1][newnode][0]['label']))
+                #print(newnode+"->"+node2+" weight: " + str(network[newnode][node2][0]['label']))
 
+    return network
+
+def removeCapConstraint(network,nodeCaps):
+    for node in network.nodes():
+        if node in nodeCaps:
+           newnode = node+"'"
+           network.add_node(newnode)
+           weight = nodeCaps[node]
+           network.add_edge(node, newnode, label=weight)
+           #print(node+"->"+newnode+" weight: " + str(network[node][newnode][0]['label'])) 
+    return network
+
+        
+            
 
 if __name__=="__main__":
     main(sys.argv)
